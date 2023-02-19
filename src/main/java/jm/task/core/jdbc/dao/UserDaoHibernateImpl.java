@@ -10,11 +10,9 @@ import java.util.List;
 public class UserDaoHibernateImpl implements UserDao {
     public UserDaoHibernateImpl() {
     }
-
-
     @Override
     public void createUsersTable() {
-        String sql = "CREATE TABLE users (\n" +
+        String sql = "CREATE TABLE IF NOT EXISTS users (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `name` VARCHAR(45) NOT NULL,\n" +
                 "  `lastname` VARCHAR(45) NOT NULL,\n" +
@@ -27,12 +25,11 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void dropUsersTable() {
-        String sql = "DROP TABLE users";
+        String sql = "DROP TABLE IF EXISTS users";
         try (Session session = Util.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.createSQLQuery(sql).executeUpdate();
@@ -52,7 +49,6 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -66,7 +62,6 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
